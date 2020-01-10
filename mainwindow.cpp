@@ -11,14 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    registrationWindow = new Registration();
-    connect(registrationWindow,&Registration::firstWindow, this, &MainWindow::show);
+    registrationWindow = new registration();
+    connect(registrationWindow,&registration::firstWindow, this, &MainWindow::show);
     adwin = new adminwindow();
     connect(adwin,&adminwindow::firstWindow, this, &MainWindow::show);
     worwin = new workerWind();
     connect(worwin,&workerWind::firstWindow, this, &MainWindow::show);
-  /*  dispwin = new dispWindow();
-    connect(dispwin,&dispWindow::firstWindow, this, &MainWindow::show);*/
     dp = new DepWindow();
     connect(dp,&DepWindow::firstwindow,this,&MainWindow::show);
 
@@ -29,21 +27,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_Enter_clicked()
 {
     Develop use;
 
-    QString username = ui->lineEdit_Login->text();
-    QString password = ui->lineEdit_Password->text();
+    QString username = ui->Login->text();
+    QString password = ui->Password->text();
     int temp =0;
-    if((ui->lineEdit_Login->text() !=0) || (ui->lineEdit_Password->text()!=0)){
+    if((ui->Login->text() !=0) || (ui->Password->text()!=0)){
          QFile in("logsys5.bin");
         in.open(QIODevice::ReadOnly);
         QDataStream stream(&in);
     while(!stream.atEnd())
     {
         stream >> use;
-        if((ui->lineEdit_Login->text() == use.UserName) && (ui->lineEdit_Password->text()==use.Password))
+        if((ui->Login->text() == use.UserName) && (ui->Password->text()==use.Password))
         {
             temp++;
             QMessageBox::information(this, "Login", "Успешный вход в систему");
@@ -52,8 +50,8 @@ void MainWindow::on_pushButton_2_clicked()
                 SetDatabase();
                 adwin->SetTable(Database);
                 adwin ->show();
-                ui->lineEdit_Login->clear();
-                ui->lineEdit_Password->clear();
+                ui->Login->clear();
+                ui->Password->clear();
                 this->hide();
                 in.close();
                 break;
@@ -63,8 +61,8 @@ void MainWindow::on_pushButton_2_clicked()
                 SetDatabase();
                 dp->SetTable(Database);
                 dp ->show();
-                ui->lineEdit_Login->clear();
-                ui->lineEdit_Password->clear();
+                ui->Login->clear();
+                ui->Password->clear();
                 in.close();
                 this->hide();
                 break;
@@ -75,8 +73,8 @@ void MainWindow::on_pushButton_2_clicked()
                 worwin ->SetTable(Database);
                 worwin->SetModelView();
                 worwin ->show();
-                ui->lineEdit_Login->clear();
-                ui->lineEdit_Password->clear();
+                ui->Login->clear();
+                ui->Password->clear();
                 in.close();
                 this->hide();
                 break;
@@ -91,7 +89,6 @@ void MainWindow::on_pushButton_2_clicked()
         QMessageBox::warning(this, "Warning", "Логин или пароль не совпадают!");
     }
 }
-
 void MainWindow::SetDatabase()
 {
 
@@ -102,14 +99,13 @@ void MainWindow::SetDatabase()
       qDebug() << "True";
 
 }
-
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_Registr_clicked()
 {
     this->hide();
     registrationWindow -> show();
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_closeWind_clicked()
 {
-    qApp->quit();
+  qApp->quit();
 }

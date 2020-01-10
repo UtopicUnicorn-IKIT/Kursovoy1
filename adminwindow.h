@@ -2,13 +2,9 @@
 #define ADMINWINDOW_H
 
 #include <QDialog>
-#include <development.h>
-#include <newgroup.h>
-#include <registration.h>
-#include <dispwindow.h>
-#include <workerwind.h>
-#include <depwindow.h>
 #include <createdisp.h>
+#include <depwindow.h>
+#include <newgroup.h>
 
 namespace Ui {
 class adminwindow;
@@ -21,30 +17,24 @@ class adminwindow : public QDialog
 public:
     explicit adminwindow(QWidget *parent = nullptr);
     ~adminwindow();
- void SetDatabase();
- void SetTable(QSqlDatabase &);
+    void SetDatabase();
+    void SetTable(QSqlDatabase &);
 signals:
     void firstWindow();
-    void adminWindow();
-
 private slots:
-    void on_pushButton_5_clicked();
+    void on_Exit_clicked();
 
-    void on_pushButton_9_clicked();
+    void on_OpenDisp_clicked();
 
-    void on_pushButton_8_clicked();
-
-    void on_pushButton_clicked();
-
-
+    void on_ChangeRights_clicked();
+    void on_NewDisp_clicked();
 
 private:
     Ui::adminwindow *ui;
-    newGroup *upWind;
-    Registration *registrationWindow;
     DepWindow *Dep;
     QSqlDatabase table;
     CreateDisp *crt;
+    newGroup *upWind;
 };
 
 #endif // ADMINWINDOW_H

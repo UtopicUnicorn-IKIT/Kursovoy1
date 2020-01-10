@@ -3,30 +3,28 @@
 
 #include <QDialog>
 #include <development.h>
-#include <QMessageBox>
-#include "development.h"
 #include <QDataStream>
 namespace Ui {
-class Registration;
+class registration;
 }
 
-class Registration : public QDialog
+class registration : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Registration(QWidget *parent = nullptr);
-    ~Registration();
+    explicit registration(QWidget *parent = nullptr);
+    ~registration();
+    bool Check();
 signals:
     void firstWindow();
-
 private slots:
-    void on_pushButton_clicked();
+    void on_OK_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_Cancle_clicked();
 
 private:
-    Ui::Registration *ui;
+    Ui::registration *ui;
 };
 
 #endif // REGISTRATION_H

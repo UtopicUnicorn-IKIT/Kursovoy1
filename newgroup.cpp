@@ -20,7 +20,7 @@ newGroup::~newGroup()
     delete ui;
 }
 
-void newGroup::on_pushButton_clicked()
+void newGroup::on_Accept_clicked()
 {
     Develop use;
      QFile in("logsys5.bin");
@@ -29,12 +29,12 @@ void newGroup::on_pushButton_clicked()
     QFile out("logsys7.bin");
    out.open(QIODevice::WriteOnly);
    QDataStream stream2(&out);
- QString username = ui->UserN->text();
- if(ui->UserN != 0){
+ QString username = ui->Login->text();
+ if(ui->Login != 0){
      while(!stream.atEnd())
      {
           stream >> use;
-         if(ui->UserN->text() == use.UserName)
+         if(ui->Login->text() == use.UserName)
          {
 
              if(ui->RB1->isChecked())
@@ -73,6 +73,7 @@ void newGroup::on_pushButton_clicked()
     QFile in2("logsys7.bin");
     in2.open(QIODevice::WriteOnly | QIODevice::Truncate);
     in2.close();
+    ui->Login->clear();
     this->close();
  }   else{
 QMessageBox::warning(this, "Login", "Некоторые поля пустые");
@@ -81,7 +82,8 @@ QMessageBox::warning(this, "Login", "Некоторые поля пустые");
 
 }
 
-void newGroup::on_pushButton_2_clicked()
+void newGroup::on_Cancle_clicked()
 {
+    ui->Login->clear();
     this->close();
 }

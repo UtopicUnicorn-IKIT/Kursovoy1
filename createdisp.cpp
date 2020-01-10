@@ -16,11 +16,12 @@ CreateDisp::~CreateDisp()
     delete ui;
 }
 
-void CreateDisp::on_pushButton_clicked()
+void CreateDisp::on_CreateNew_clicked()
 {
     QString username = ui->userName->text();
     QString login=ui->Login->text();
      QString password = ui->Password->text();
+     if(Check() == true){
    if((ui->userName->text() !=0) || (ui->Login->text()!=0)||(ui->Password->text() !=0)){
        QMessageBox::information(this, "Create", "Пользователь успешно создан");
        Develop use;
@@ -43,12 +44,38 @@ void CreateDisp::on_pushButton_clicked()
         }else
         QMessageBox::warning(this, "Create", "Некоторые поля пустые");
 }
+}
 
-void CreateDisp::on_pushButton_2_clicked()
+void CreateDisp::on_Cancle_clicked()
 {
     ui->userName->clear();
     ui->Login->clear();
     ui->Password->clear();
     emit AdminWindow();
      this->close();
+}
+bool CreateDisp::Check(){
+    QString login=ui->userName->text();
+     Develop use;
+     int i = 0;
+     QFile in("logsys5.bin");
+     in.open(QIODevice::ReadOnly);
+     QDataStream stream(&in);
+     while(!stream.atEnd())
+     {
+         stream >> use;
+         if(use.UserName == login ){
+          QMessageBox::warning(this, "Create", "Данный логин уже используется!");
+          ui->userName->clear();
+          ui->Password->clear();
+          i++;
+          in.close();
+           }
+     }
+     if(i ==0)
+         return true;
+     else {
+         return false;
+     }
+
 }

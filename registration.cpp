@@ -4,14 +4,14 @@
 #include <QFile>
 #include "development.h"
 #include <QDataStream>
-Registration::Registration(QWidget *parent) :
+registration::registration(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Registration)
+    ui(new Ui::registration)
 {
     ui->setupUi(this);
 }
 
-Registration::~Registration()
+registration::~registration()
 {
     delete ui;
 }
@@ -32,11 +32,12 @@ QDataStream &operator >>(QDataStream &out, Develop &any)
     out >> any.Group;
     return out;
 }
-void Registration::on_pushButton_clicked()
+void registration::on_OK_clicked()
 {
     QString username = ui->Name->text();
     QString login=ui->username->text();
      QString password = ui->password->text();
+     if(Check() == true){
    if((ui->Name->text() !=0) || (ui->username->text()!=0)||(ui->password->text() !=0)){
        QMessageBox::information(this, "Create", "Пользователь успешно создан");
        Develop use;
@@ -48,7 +49,7 @@ void Registration::on_pushButton_clicked()
             QFile out("logsys5.bin");
             out.open(QIODevice::Append);
             QDataStream
-                    Stream(&out);
+            Stream(&out);
             Stream << use;
             out.close();
             ui->Name->clear();
@@ -58,10 +59,35 @@ void Registration::on_pushButton_clicked()
             emit firstWindow();
         }else
         QMessageBox::warning(this, "Create", "Некоторые поля пустые");
+     }
+}
+bool registration::Check(){
+    QString login=ui->username->text();
+     Develop use;
+     int i = 0;
+     QFile in("logsys5.bin");
+     in.open(QIODevice::ReadOnly);
+     QDataStream stream(&in);
+     while(!stream.atEnd())
+     {
+         stream >> use;
+         if(use.UserName == login ){
+          QMessageBox::warning(this, "Create", "Данный логин уже используется!");
+          ui->username->clear();
+          ui->password->clear();
+          i++;
+          in.close();
+           }
+     }
+     if(i ==0)
+         return true;
+     else {
+         return false;
+     }
+
 }
 
-
-void Registration::on_pushButton_2_clicked()
+void registration::on_Cancle_clicked()
 {
     ui->Name->clear();
     ui->username->clear();

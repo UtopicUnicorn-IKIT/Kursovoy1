@@ -1,21 +1,18 @@
 #include "workerwind.h"
 #include "ui_workerwind.h"
 
-
 workerWind::workerWind(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::workerWind)
 {
     ui->setupUi(this);
     ui->comboBox->addItems({"По дате","По алфавиту"});
-
 }
 
 workerWind::~workerWind()
 {
     delete ui;
 }
-
 void workerWind::SetModelView()
 {
     Model = new QSqlTableModel(this);
@@ -25,20 +22,17 @@ void workerWind::SetModelView()
     ui->tableView->show();
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
-
-void workerWind::on_pushButton_3_clicked()
+void workerWind::on_Exit_clicked()
 {
     this->close();
     emit firstWindow();
 }
-
-
 void workerWind::SetTable(QSqlDatabase &Table)
 {
    table = Table;
 }
 
-void workerWind::on_pushButton_clicked()
+void workerWind::on_Sort_clicked()
 {
     if(ui->comboBox->currentText() == "По дате")
     {
@@ -52,4 +46,3 @@ void workerWind::on_pushButton_clicked()
     }
     return;
 }
-

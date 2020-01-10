@@ -14,14 +14,15 @@ class CreateDisp : public QDialog
 public:
     explicit CreateDisp(QWidget *parent = nullptr);
     ~CreateDisp();
+    bool Check();
     friend  QDataStream &operator <<(QDataStream &out, const Develop &any);
     friend  QDataStream &operator >>(QDataStream &out, Develop &any);
 signals:
     void AdminWindow();
 private slots:
-    void on_pushButton_clicked();
+    void on_CreateNew_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_Cancle_clicked();
 
 private:
     Ui::CreateDisp *ui;
